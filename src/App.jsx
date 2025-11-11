@@ -9,18 +9,28 @@ import Channels from './pages/Channels.jsx'
 import Login from "./pages/Auth/Login.jsx"
 import Signup from "./pages/Auth/Signup.jsx"
 import Authlogin from './pages/Auth/Authlogin.jsx'
+import All from './pages/Chat/All.jsx'
+import Unread from './pages/Chat/Unread.jsx'
+import Favorites from './pages/Chat/Favorites.jsx'
+import Groups from './pages/Chat/Groups.jsx'
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Chats />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/chats" element={<Chats />} >
+        <Route index element={<All/>}/>
+        <Route path='unread' element={<Unread/>}/>
+        <Route path='favorites' element={<Favorites/>}/>
+        <Route path='groups' element={<Groups/>}/>
+      </Route>
       <Route path="/status" element={<Status />} />
       <Route path="/channels" element={<Channels />} />
       <Route path="/Communities" element={<Communities />} />
       <Route path="/setting" element={<Setting />} />
       <Route path="/profile" element={<Profile />} />
 
-      <Route path='/auth' element={<Authlogin/>}>
+      <Route path='/auth' element={<Authlogin />}>
         <Route path='login' element={<Login />} />
         <Route path="signup" element={<Signup />} />
       </Route>

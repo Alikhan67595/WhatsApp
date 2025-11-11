@@ -1,12 +1,19 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar.jsx'
+import ContactList from '../components/ContactList.jsx'
+import { Outlet } from 'react-router-dom'
 
 const Chats = () => {
   return (
     <>
-    <Sidebar/>
-    <div>Chats</div>
-    
+      <div className='flex'>
+        <Sidebar />
+        <div className='flex flex-row w-full'>
+        <ContactList />
+        <div className=''></div>
+        </div>
+
+      </div>
     </>
   )
 }
