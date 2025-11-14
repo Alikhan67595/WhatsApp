@@ -7,3 +7,24 @@ body{
     background-color: #161717;
     color : #FAFAFA;
 }
+
+@media screen and (max-width: 768px) {
+    body {
+        background-color: #0b1014;
+    }
+}   
+
+
+
+.grow-width {
+  animation: growWidth 0.2s ease-in-out;
+}
+
+@keyframes growWidth {
+  from {
+    transform: scaleX(0.9);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
