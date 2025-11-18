@@ -6,6 +6,7 @@
 body{
     background-color: #161717;
     color : #FAFAFA;
+    caret-color: #21c063;
 }
 
 @media screen and (max-width: 768px) {
@@ -27,4 +28,42 @@ body{
   to {
     transform: scaleX(1);
   }
+}
+
+
+
+
+
+
+::-webkit-scrollbar {
+  width: 7px;   
+  height: 7px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2d2e2e; 
+  border-radius: 10px;
+  border: 1px solid transparent; 
+}
+
+html:hover::-webkit-scrollbar-thumb, 
+body:hover::-webkit-scrollbar-thumb,
+.scrollable-content:hover::-webkit-scrollbar-thumb {
+  background-color: #C0C0C1; 
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #C0C0C1; 
+}
+
+
+* {
+  scrollbar-width: thin; 
+  scrollbar-color: #2d2e2e transparent; 
 }

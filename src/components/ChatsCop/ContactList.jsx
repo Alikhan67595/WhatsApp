@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import NewChatIcon from './Icons/NewChatIcon.jsx'
-import MoreIcon from './Icons/MoreIcon.jsx'
-import SearchIcon from './Icons/SearchIcon.jsx'
-import CloseIcon from './Icons/CloseIcon.jsx'
+import NewChatIcon from '../Icons/NewChatIcon.jsx'
+import MoreIcon from '../Icons/MoreIcon.jsx'
+import SearchIcon from '../Icons/SearchIcon.jsx'
+import CloseIcon from '../Icons/CloseIcon.jsx'
 import { NavLink, Outlet } from 'react-router-dom'
 import DropdownMenu from './DropdownMenu.jsx'
 

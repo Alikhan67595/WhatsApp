@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import MoreIcon from "./Icons/MoreIcon";
+import MoreIcon from "../Icons/MoreIcon";
 import {
   NewGroupRefreshedIcon,
   StarRefreshedIcon,
   CheckRefreshedIcon,
   LockIcon,
   ExitRefreshedIcon
-} from './Icons/Icons.jsx'
+} from '../Icons/Icons.jsx'
 import { NavLink } from "react-router-dom";
 
 
@@ -155,7 +155,7 @@ export default function Dropdown() {
             </DropdownMenuItem>
           </NavLink>
 
-          <NavLink>
+          <NavLink to={'/setting'}>
             <DropdownMenuItem className='active:bg-[#1b2227cc]'>
               <span className="">Settings</span>
             </DropdownMenuItem>

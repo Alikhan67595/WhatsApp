@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar.jsx'
-import ContactList from '../components/ContactList.jsx'
+import ContactList from '../components/ChatsCop/ContactList.jsx'
 import { Outlet } from 'react-router-dom'
 
 const Chats = () => {
