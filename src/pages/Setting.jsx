@@ -14,7 +14,7 @@ const Setting = () => {
       <SettingList/>
     </div> 
 
-    <div className='min-[768px]:flex'>
+    <div className=' min-[768px]:hidden'>
     <SettingListMobile/>
     </div>
 

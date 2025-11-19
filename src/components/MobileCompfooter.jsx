@@ -15,7 +15,7 @@ import {
 
 
 
-const Mobilefooter = ({to, activeIcon, inactiveIcon, className='', title}) => {
+const MobileCompfooter = ({to, activeIcon, inactiveIcon, className='', title}) => {
   return (
     <>
 
@@ -35,4 +35,4 @@ const Mobilefooter = ({to, activeIcon, inactiveIcon, className='', title}) => {
   )
 }
 
-export default Mobilefooter
+export default MobileCompfooter

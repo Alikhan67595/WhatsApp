@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CloseIcon = ({ size = 20, color = "currentColor", title = "Clear search field" }) => {
+const CloseIcon = ({ size = 24, color = "currentColor", title = "Clear search field" }) => {
   return (
     <svg 
       viewBox="0 0 24 24" 

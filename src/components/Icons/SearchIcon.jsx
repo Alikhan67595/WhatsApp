@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchIcon = ({ size = 20, color = "currentColor", title = "Search" }) => {
+const SearchIcon = ({ size = 24, color = "currentColor", title = "Search" }) => {
   return (
      <svg 
       viewBox="0 0 20 20" 

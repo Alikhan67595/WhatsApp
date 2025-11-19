@@ -8,7 +8,7 @@ const Profile = () => {
       <div className='flex w-screen h-screen overflow-hidden'>
     <div className=''><Sidebar/></div>
 
-    <div className='flex-1 max-[768px]:hidden'>
+    <div className='flex-1'>
       <Profilelist/>
     </div> 
 

@@ -39,7 +39,7 @@ const DropdownMenu = ({ children, trigger }) => {
       </div>
 
       {isOpen && (
-        <div className="min-[768px]:p-2  max-[768px]:py-4 absolute max-[768px]:bg-[#13181c] max-[768px]:right-0 w-45 rounded-2xl  bg-[#1d1f1f]  z-60 animate-in fade-in-0 zoom-in-95 top-[60%] left-[50%]">
+        <div className="min-[768px]:p-2  max-[768px]:py-4 absolute max-[768px]:bg-[#13181c] max-[768px]:right-0 w-45 rounded-2xl  bg-[#1d1f1f]  z-60 animate-in fade-in-0 zoom-in-95 top-[60%] left-[50%] max-[768px]:left-[30%]">
           {children}
         </div>
       )}
@@ -60,8 +60,9 @@ const DropdownMenuItem = ({ children, className = '' }) => (
 const DropdownMenuSeparator = () => <div className="my-1 h-px w-[90%] bg-zinc-700 m-auto " />;
 
 // --- Exported Dropdown ---
-export default function Dropdown() {
+export default function Dropdown({setViewphoto}) {
   return (
+    <>
     <div className="flex items-center justify-center ">
       <DropdownMenu
         trigger={
@@ -74,9 +75,9 @@ export default function Dropdown() {
                         </div>
         }
       >
-        <div className="flex flex-col space-y-1  max-[768px]:hidden">
+        <div className="flex flex-col space-y-1  ">
 
-          <NavLink>
+          <NavLink  onClick={()=>setViewphoto(true)}>
             <DropdownMenuItem className='hover:bg-[#343535]'>
               <span><View /></span>
               <span>View photo</span>
@@ -104,10 +105,10 @@ export default function Dropdown() {
         
 
           <NavLink>
-            <DropdownMenuItem className='hover:bg-[#281c20] hover:text-[#fa99a4]'>
+            <DropdownMenuItem className='hover:bg-[#281c20] hover:text-[#fa99a4] max-[768px]:text-[#fa99a4]'>
 
-              <span><Bin className="" /></span>
-              <span className="">Remove photo</span>
+              <span><Bin className="max-[768px]:text-[#fa99a4]" /></span>
+              <span className="max-[768px]:text-[#fa99a4]">Remove photo</span>
             </DropdownMenuItem>
           </NavLink>
           {/* ///////////////////////////////// */}
@@ -116,6 +117,14 @@ export default function Dropdown() {
 
 
       </DropdownMenu>
+
     </div>
+
+
+        
+
+
+</>
+
   );
 }
