@@ -23,8 +23,8 @@ const ContactList = () => {
                 <header className='flex items-center pt-2 px-5 max-[768px]:px-4 user-select-none'>
 
                     <h1 className=' text-[22px] font-semibold w-2/2'>WhatsApp</h1>
-                    <div className='flex justify-center items-center rounded-full p-[8px] max-[768px]:px-0 m-2 min-[768px]:hover:bg-[#2d2e2e] duration-150 cursor-pointer'><NewChatIcon /></div>
-                    <div className='flex justify-center items-center rounded-full p-[8px]  max-[768px]:px-0 m-1 min-[768px]:hover:bg-[#2d2e2e] duration-150 cursor-pointer'><DropdownMenu/></div>
+                    <button className='flex justify-center items-center rounded-full p-[8px] max-[768px]:px-0 m-2 min-[768px]:hover:bg-[#2d2e2e] duration-150 cursor-pointer'><NewChatIcon /></button>
+                    <button className='flex justify-center items-center rounded-full p-[8px]  max-[768px]:px-0 m-1 min-[768px]:hover:bg-[#2d2e2e] duration-150 cursor-pointer'><DropdownMenu/></button>
                 </header>
 
                 <div className=' items-center p-2 px-5 max-[400px]:px-3 '>
@@ -35,21 +35,19 @@ const ContactList = () => {
                     </div>
                 </div>
 
-                <div className='px-6 max-[400px]:px-3 pt-1 flex justify-start items-center gap-2 text-[14px] max-[333px]:text-[12px] text-[#FFFFFF99] font-semibold'>
+                <div className='px-6 max-[400px]:px-3 pb-2 pt-1 flex justify-start items-center gap-2 text-[14px] max-[333px]:text-[12px] text-[#FFFFFF99] font-semibold'>
     
-                    <NavLink to={"/chats"} end>{({ isActive }) => (<button className={`${isActive ? 'bg-[#103529] hover:bg-[#11432e] ' : 'bg-none'} p-1 px-3 border-[1px] border-[#ffffff1a] rounded-[27px] hover:bg-[#2d2e2e] duration-100 cursor-pointer`}>All</button>)}</NavLink>
-                    <NavLink to={"unread"}>{({ isActive }) => (<button className={`${isActive ? 'bg-[#103529] hover:bg-[#11432e] ' : 'bg-none'} p-1 px-3 border-[1px] border-[#ffffff1a] rounded-[27px] hover:bg-[#2d2e2e] duration-100 cursor-pointer`}>Unread</button>)}</NavLink>
-                    <NavLink to={"favorites"}>{({ isActive }) => (<button className={`${isActive ? 'bg-[#103529] hover:bg-[#11432e] ' : 'bg-none'} p-1 px-3 border-[1px] border-[#ffffff1a] rounded-[27px] hover:bg-[#2d2e2e] duration-100 cursor-pointer`}>Favorites</button>)}</NavLink>
-                    <NavLink to={"groups"}>{({ isActive }) => (<button className={`${isActive ? 'bg-[#103529] hover:bg-[#11432e] ' : 'bg-none'} p-1 px-3 border-[1px] border-[#ffffff1a] rounded-[27px] hover:bg-[#2d2e2e] duration-100 cursor-pointer`}>Groups</button>)}</NavLink>
+                    <NavLink className='focus:outline-none focus-visible:ring-2 focus-visible:ring-[#21c063] rounded-[27px]' to={"/chats"} end>{({ isActive }) => (<div className={`${isActive ? 'bg-[#103529] hover:bg-[#11432e] ' : 'bg-none'} p-1 px-3 border-[1px] border-[#ffffff1a] rounded-[27px] hover:bg-[#2d2e2e] duration-100 cursor-pointer`}>All</div>)}</NavLink>
+                    <NavLink className='focus:outline-none focus-visible:ring-2 focus-visible:ring-[#21c063] rounded-[27px]' to={"unread"}>{({ isActive }) => (<div className={`${isActive ? 'bg-[#103529] hover:bg-[#11432e] ' : 'bg-none'} p-1 px-3 border-[1px] border-[#ffffff1a] rounded-[27px] hover:bg-[#2d2e2e] duration-100 cursor-pointer`}>Unread</div>)}</NavLink>
+                    <NavLink className='focus:outline-none focus-visible:ring-2 focus-visible:ring-[#21c063] rounded-[27px]' to={"favorites"}>{({ isActive }) => (<div className={`${isActive ? 'bg-[#103529] hover:bg-[#11432e] ' : 'bg-none'} p-1 px-3 border-[1px] border-[#ffffff1a] rounded-[27px] hover:bg-[#2d2e2e] duration-100 cursor-pointer`}>Favorites</div>)}</NavLink>
+                    <NavLink className='focus:outline-none focus-visible:ring-2 focus-visible:ring-[#21c063] rounded-[27px]' to={"groups"}>{({ isActive }) => (<div className={`${isActive ? 'bg-[#103529] hover:bg-[#11432e] ' : 'bg-none'} p-1 px-3 border-[1px] border-[#ffffff1a] rounded-[27px] hover:bg-[#2d2e2e] duration-100 cursor-pointer`}>Groups</div>)}</NavLink>
               
                 </div>
-
-
 
                 {/*//////////////////////////////////////////////////////////////////////////////////////////////*/}
 
 
-                <div className='px-4'>
+                <div className='min-[768px]:px-2 overflow-x-auto'>
                     <Outlet />
 
                     

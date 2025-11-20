@@ -9,6 +9,12 @@ body{
     caret-color: #21c063;
 }
 
+
+button:focus-visible {
+  outline: 2px solid #21c063; /* color change kar diya */
+  outline-offset: 2px;     /* thoda space outline ke liye */
+}
+
 input::Selection{
    color : #FAFAFA;
     background-color: #1a5a35;
@@ -77,6 +83,27 @@ input::Selection{
 }
 
 
+
+
+.subSlide-in,
+.subSlide-out {
+  transform-origin: right;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+
+
+
+
+.subSlide-in {
+  transform: translateX();
+  /* opacity: 1; */
+}
+
+.subSlide-out {
+  transform: translateX(100%);
+  /* opacity: 0; */
+}
 
 
 
