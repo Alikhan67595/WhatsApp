@@ -1,13 +1,16 @@
 import React from 'react'
 import picture from '../../assets/picture.jpg'
 import { DownArrow } from '../../components/Icons/Icons'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useOutletContext } from 'react-router-dom'
 
 
 const UserComponent = ({image, name , time , messageType}) => {
+
+  const {isUserChats, setIsUserChats} = useOutletContext()
+  
   return (
 <>
-<NavLink to={''} className='flex items-center focus-visible:hidden group select-none flex gap-4 w-full duration-150 hover:bg-[#353636] max-[768px]:active:bg-[#1b2227cc] p-3 py-[12px] min-[768px]:rounded-[12px] relative overflow-x-hidden cursor-pointer'>
+<NavLink onClick={()=>setIsUserChats(true)} to={''} className='flex items-center focus-visible:hidden group select-none flex gap-4 w-full duration-150 hover:bg-[#353636] max-[768px]:active:bg-[#1b2227cc] p-3 py-[12px] min-[768px]:rounded-[12px] relative overflow-x-hidden cursor-pointer'>
 
     <div className='size-11 max-[450px]:size-13 bg-amber-300 rounded-full p-1 bg-cover' style={{backgroundImage : `url(${image})`}}></div>
     <div className='flex flex-col flex-1  items-start min-w-0'>

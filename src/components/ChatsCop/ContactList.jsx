@@ -9,7 +9,7 @@ import DropdownMenu from './DropdownMenu.jsx'
 
 
 
-const ContactList = () => {
+const ContactList = ({ isUserChats, setIsUserChats }) => {
 
     const [search, setSearch] = useState('')
 
@@ -48,7 +48,7 @@ const ContactList = () => {
 
 
                 <div className='min-[768px]:px-2 overflow-x-auto'>
-                    <Outlet />
+                    <Outlet context={{isUserChats, setIsUserChats }}/>
 
                     
                 </div>

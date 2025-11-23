@@ -1,5 +1,5 @@
 import React from 'react'
-import Emptypic from '../../assets/emptypic.svg'
+import emptypic from '../../assets/emptypic.svg'
 import { Typewriter } from 'react-simple-typewriter'
 import { Github } from '../../components/Icons/Icons'
 
@@ -7,7 +7,9 @@ const DefaultEmptyChat = ({className}) => {
   return (
     <>
     <div className='w-full h-full flex flex-col justify-center items-center max-[768px]-hidden'>
-    <div className={`${className} bg-no-repeat bg-contain bg-top`} style={{backgroundImage : `url(${Emptypic})`}}></div>
+    <div className={`${className} `} >
+      <img src={emptypic} alt="" />
+    </div>
 
 
 
