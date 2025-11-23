@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import profileImg from '../assets/picture.jpg'
-import Mobilefooter from './MobileCompfooter.jsx'
 import {
   CommunityUnFocus,
   CommunityFocus,
@@ -46,7 +45,7 @@ const Sidebar = () => {
 
       
     </>
-  )git
+  );
 }
 
 export default Sidebar

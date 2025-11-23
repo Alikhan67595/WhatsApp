@@ -1,5 +1,5 @@
 import React from 'react'
-import Emptypic from '../../assets/Emptypic.svg'
+import Emptypic from '../../assets/emptypic.svg'
 import { Typewriter } from 'react-simple-typewriter'
 import { Github } from '../../components/Icons/Icons'
 

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import background from '../../assets/Whatsapp-background.png'
+import background from '../../assets/whatsapp-background.png'
 import picture from '../../assets/picture.jpg'
 import { ExpressionsIcon, PhoneFillicon, PlusIcon, Search, SendIcon, VideoCallIcon, VoiceMic } from '../../components/Icons/Icons.jsx'
 import TextareaAutosize from 'react-textarea-autosize'
