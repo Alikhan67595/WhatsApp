@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Chats from './pages/Chats.jsx'
+import Users from './pages/Users.jsx'
 import Status from './pages/Status.jsx'
 import Profile from './pages/Profile.jsx'
 import Setting from './pages/Setting.jsx'
@@ -14,12 +14,16 @@ import Unread from './pages/Chat/Unread.jsx'
 import Favorites from './pages/Chat/Favorites.jsx'
 import Groups from './pages/Chat/Groups.jsx'
 import CallLog from './pages/CallLog.jsx'
+import UserChats from './pages/Chat/UserChats.jsx'
+import DefaultEmptyChat from './pages/Chat/DefaultEmptyChat.jsx'
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/chats" element={<Chats />} >
+      <Route path='chat/:id' element={<Users />}/>
+     
+      <Route path="/users" element={<Users />} >
         <Route index element={<All/>}/>
         <Route path='unread' element={<Unread/>}/>
         <Route path='favorites' element={<Favorites/>}/>

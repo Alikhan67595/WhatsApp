@@ -3,6 +3,8 @@ import SearchIcon from '../Icons/SearchIcon';
 import CloseIcon from '../Icons/CloseIcon';
 import { NavLink } from 'react-router-dom';
 import { ChatUnfocusIcon, ExitRefreshedIcon, KeyboardIcon, KeyIcon, LockIcon, Notifications, QuestionIcon } from '../Icons/Icons';
+import picture from '../../assets/picture.jpg'
+
 
 const SettingsIcon = () => (
   <svg
@@ -70,7 +72,7 @@ const SettingList = () => {
           <div className='px-4 py-2 overflow-y-auto pb-[50px]'>
 
             <NavLink to={'/Profile'} className='p-3  flex gap-4 items-center hover:bg-[#242626] rounded-[12px] duration-50 ease-in-out cursor-pointer'>
-              <div className='size-15 bg-amber-500 rounded-full' ></div>
+              <div className='size-15 bg-amber-500 rounded-full bg-contain bg-cover' style={{backgroundImage : `url(${picture})`}}></div>
               <div className='flex flex-col'>
                 <span>Ali Khan</span>
                 <span className='text-[15px] text-[#FFFFFF99]'>Hey there! I am using WhatsApp.</span>

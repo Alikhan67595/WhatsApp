@@ -20,6 +20,8 @@
     "react-hook-form": "^7.66.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.5",
+    "react-simple-typewriter": "^5.0.1",
+    "react-textarea-autosize": "^8.5.9",
     "react-toastify": "^11.0.5",
     "tailwindcss": "^4.1.17",
     "yup": "^1.7.1"
