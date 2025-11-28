@@ -146,3 +146,8 @@ body:hover::-webkit-scrollbar-thumb,
   scrollbar-width: thin; 
   scrollbar-color: #2d2e2e transparent; 
 }
+
+
+input::placeholder{
+  user-select: none;
+}

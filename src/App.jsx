@@ -36,10 +36,10 @@ const App = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path='/call' element={<CallLog />} />
 
-      <Route path='/auth' element={<Authlogin />}>
-        <Route path='login' element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-      </Route>
+      
+        <Route path='/auth/login' element={<Login />} />
+        <Route path="/auth/signup" element={<Signup />} />
+     
       <Route path='*' element={<>404 Error</>} />
 
     </Routes>
