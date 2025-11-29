@@ -1423,7 +1423,7 @@ export const CheckCircleFilled = ({color='currentColor'}) => {
 
 
 
-export const CrossCircle = ({ size = 18, color = "currentColor" }) => {
+export const CrossCircle = ({ size = 19, color = "currentColor" }) => {
   return (
     <svg
       stroke={color}

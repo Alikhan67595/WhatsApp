@@ -1,12 +1,119 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useState , useRef } from 'react'
+import whatsappBackground from '../../assets/whatsapp-background.png'
+import { Link, useNavigate } from 'react-router'
+import {useForm} from 'react-hook-form'
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
+import {UserIcon, MailIconSign, LockIconSign, EyeIcon, EyeOffIcon, GoogleIcon, UserVerifiedIcon, CheckCircleFilled, CrossCircle} from '../../components/Icons/Icons.jsx'
+import axios from 'axios'
+
 
 const Login = () => {
+  const navigate = useNavigate()
+  const [passType ,setPassType] = useState("password")
+
+
+  const formSchema = yup.object({
+    emailOrUserName: yup.string().required("email or username is required").min(3),
+    password: yup.string().required().min(6,'Password must be at least 6 characters long'),
+  })
+
+
+   const {
+    handleSubmit,
+    register,
+    watch,
+    reset,
+    setValue,
+    formState: { errors , isSubmitting}
+  } = useForm({
+    resolver: yupResolver(formSchema)
+  })
+
+const findusername = watch("userName"); 
+
+// handel Login function
+  const handelLogin = async(data)=>{
+try {
+
+  let createUser = await axios.post("https://whats-app-backend-roan.vercel.app/api/auth/login",data,{
+  withCredentials: true
+})
+  console.log(createUser)
+  navigate("/users", {replace:true})
+} catch (error) {
+  console.log(error)
+}
+  }
+  
+ 
+
+
   return (
     <>
-    <Outlet/>
-    <div>Login</div>
-    </>
+    <div className='max-[768px]:bg-contain object-fill  z-1 opacity-5 absolute w-screen h-screen ' style={{backgroundImage : `url(${whatsappBackground})`}}>
+
+    </div>
+    <div className=' z-100 min-w-[300px]  w-full h-screen text-white flex flex-col items-center justify-center relative' >
+    
+
+ <form  className='min-h-[400px] w-[320px] max-[350px]:w-[90%] p-4  flex flex-col gap-6 items-center justify-center border-[#262626] border-[1px]  bg-[#000000] rounded-[10px]'>
+
+  <div className='w-[100%] flex flex-col justify-center items-center'>
+  <h1 className='text-[24px] font-semibold '>Welcome back!</h1>
+  <h3 className='text-[13px] text-center text-[#9f9fa9]'>Please enter your details to continue</h3>
+  </div>
+
+
+<div className='w-[100%] flex flex-col gap-3'>
+
+{/* emailOrUserName */}
+<div>
+<div className={`${errors.emailOrUserName ? 'border-red-600' : 'border-[#262626]'} w-full flex border-[1px] border-[#262626] rounded-[8px]  dark:bg-[#0a0a0a]`}>
+  <div className='flex items-center justify-center pl-2'>{<UserIcon/>}</div>
+  <input type="text" className='w-full p-[8px] text-[14px] outline-none' {...register('emailOrUserName')} placeholder='email or username' />
+</div>
+ {errors.emailOrUserName && <span className='text-[12px] text-red-600'>{errors.emailOrUserName.message}</span>}
+  </div>
+
+
+
+
+{/* Password Input */}
+
+<div>
+  <div className={`${errors.password ? 'border-red-600' : ' border-[#262626]'} w-full flex border-[1px]  border-[#262626]  rounded-[8px]  bg-[#0a0a0a]`}>
+    <div className='flex items-center justify-center pl-2'>{<LockIconSign/>}</div>
+  <input autoComplete='new-password' type={passType === "password" ? "password" : "text"} className='w-full p-[8px] text-[14px] outline-none' {...register('password')} placeholder='Password' />
+<button className='pr-2' type='button' onClick={()=>setPassType(passType === "password" ? "text" : "password")}>{passType === "password" ? <EyeIcon/> : <EyeOffIcon/>}</button>
+  </div>
+   {errors.password && <span className='text-[12px] text-red-600'>{errors.password.message}</span>}
+</div>
+
+
+
+
+{/* ///////////////////////////////////////////////// */}
+
+  <button disabled={isSubmitting} type='submit' onClick={handleSubmit(handelLogin)} className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-white dark:text-black bg-black dark:bg-white dark:hover:bg-[#cfcfcf]'>Create Account</button>
+</div>
+
+ <div className='w-[100%] h-[1px] text-[14px] grid place-items-center bg-[#9f9fa9] before:text-[#9f9fa9] before:font-semibold before:content-["OR"] before:absolute before:bg-[white] dark:before:bg-[black]  before:w-[60px] before:text-center '></div>
+
+<button type='button' className=' max-[400px]:text-[15px] flex justify-center items-center gap-2 w-full p-[7px] bg-balck rounded-[8px] font-semibold text-white bg-black dark:text-black  dark:bg-white dark:hover:bg-[#cfcfcf]'>
+ <GoogleIcon/> 
+  continue with Google
+  </button>
+
+
+<div className='text-[13px] text-[#9f9fa9]'>Don't have an account? <Link to={'/auth/signup'} className='underline'> Sign up</Link></div>
+
+ </form>
+
+    </div>
+</>
+
   )
 }
 

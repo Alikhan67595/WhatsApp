@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Users from './pages/Users.jsx'
 import Status from './pages/Status.jsx'
@@ -16,11 +16,35 @@ import Groups from './pages/Chat/Groups.jsx'
 import CallLog from './pages/CallLog.jsx'
 import UserChats from './pages/Chat/UserChats.jsx'
 import DefaultEmptyChat from './pages/Chat/DefaultEmptyChat.jsx'
+import axios from "axios"
 
 const App = () => {
+
+  const [user,setUser] = useState(null)
+  
+  const handelfetchUser = async()=>{
+    try {
+      let apiRes = await axios.get("https://whats-app-backend-roan.vercel.app/api/auth/user",{withCredentials:true})
+     console.log(apiRes.data.user)
+    setUser(apiRes.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+
+    // handel fetch user
+
+    handelfetchUser()
+  },[])
+
+
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
+    <>
+   { user ?
+      <Routes>
+      <Route path="/" element={<Users/>} />
       <Route path='/chat' element={<UserChats />}/>
      
       <Route path="/users" element={<Users />} >
@@ -37,12 +61,22 @@ const App = () => {
       <Route path='/call' element={<CallLog />} />
 
       
-        <Route path='/auth/login' element={<Login />} />
-        <Route path="/auth/signup" element={<Signup />} />
-     
+       
       <Route path='*' element={<>404 Error</>} />
 
     </Routes>
+    :
+<Routes>
+          <Route path="/" element={<Login />} />
+        <Route path='/auth/login' element={<Login/>} />
+        <Route path="/auth/signup" element={<Signup />} />
+        <Route path="*" element={<Login />} />
+     
+</Routes>
+
+
+}
+  </>
   )
 }
 

@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState , useRef } from 'react'
 import whatsappBackground from '../../assets/whatsapp-background.png'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import {useForm} from 'react-hook-form'
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
-import {UserIcon, MailIconSign, LockIconSign, EyeIcon, EyeOffIcon, GoogleIcon, UserVerifiedIcon, CheckCircleFilled} from '../../components/Icons/Icons.jsx'
+import {UserIcon, MailIconSign, LockIconSign, EyeIcon, EyeOffIcon, GoogleIcon, UserVerifiedIcon, CheckCircleFilled, CrossCircle} from '../../components/Icons/Icons.jsx'
+import axios from 'axios'
 
 
 const Signup = () => {
-
+  const navigate = useNavigate()
   const [passType ,setPassType] = useState("password")
+  const [available ,setAvailable] = useState(null)
 
-  
+
   const formSchema = yup.object({
     fullName: yup.string().required().min(3,"Your name is at least 3 characters long"),
-    username: yup.string().required().min(3,"Your Username is at least 3 characters long"),
+    userName: yup.string().required().min(3,"Your Username is at least 3 characters long"),
     email: yup.string().required().email('Invalid email address'),
     password: yup.string().required().min(6,'Password must be at least 6 characters long'),
   })
@@ -32,8 +34,42 @@ const Signup = () => {
     resolver: yupResolver(formSchema)
   })
 
+const findusername = watch("userName"); 
+
+// handel Signup function
+  const handelSignup = async(data)=>{
+try {
+
+  let createUser = await axios.post("https://whats-app-backend-roan.vercel.app/api/auth/signup",data,{
+  withCredentials: true
+})
+  console.log(createUser)
+  navigate('/users', {replace : true})
+
+} catch (error) {
+  console.log(error)
+}
+  }
+  
+ 
+  // handel check userName 
+  const handelCheckUserName = async()=>{
+    try {
+      let findUser = await axios.post("https://whats-app-backend-roan.vercel.app/api/auth/finduser", {findUsername : findusername})
+      setAvailable(findUser.data.userName)
+      console.log(findUser.data.userName)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
+  useEffect(()=>{
+    if(findusername){
+      handelCheckUserName()
+    }
+},[findusername])
+  
 
 
 
@@ -67,12 +103,12 @@ const Signup = () => {
 {/* UserName  */}
 
 <div>
-  <div className={`${errors.username ? 'border-red-600' : ' border-[#262626]'} w-full flex items-center border-[1px]  border-[#262626]  rounded-[8px]  bg-[#0a0a0a]`}>
+  <div className={`${errors.userName ? 'border-red-600' : ' border-[#262626]'} w-full flex items-center border-[1px]  border-[#262626]  rounded-[8px]  bg-[#0a0a0a]`}>
     <div className='flex items-center justify-center pl-2'>{<UserVerifiedIcon/>}</div>
-  <input autoComplete='new-password' type={"text"} className='w-full p-[8px] text-[14px] outline-none' {...register('username')} placeholder='Username' />
-<div className='pr-2'>{ <CheckCircleFilled color='green'/> }</div>
+  <input  autoComplete='new-password' type={"text"} className='w-full p-[8px] text-[14px] outline-none' {...register('userName')} placeholder='Username' />
+{findusername && <div className='pr-2'>{available ? <CheckCircleFilled color='green'/> : <CrossCircle color='red' />}</div>}
   </div>
-   {errors.username && <span className='text-[12px] text-red-600'>{errors.username.message}</span>}
+   {errors.userName && <span className='text-[12px] text-red-600'>{errors.userName.message}</span>}
 </div>
 
 
@@ -102,7 +138,7 @@ const Signup = () => {
 
 {/* ///////////////////////////////////////////////// */}
 
-  <button disabled={isSubmitting} type='submit' onClick={handleSubmit()} className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-white dark:text-black bg-black dark:bg-white dark:hover:bg-[#cfcfcf]'>Create Account</button>
+  <button disabled={isSubmitting} type='submit' onClick={handleSubmit(handelSignup)} className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-white dark:text-black bg-black dark:bg-white dark:hover:bg-[#cfcfcf]'>Create Account</button>
 </div>
 
  <div className='w-[100%] h-[1px] text-[14px] grid place-items-center bg-[#9f9fa9] before:text-[#9f9fa9] before:font-semibold before:content-["OR"] before:absolute before:bg-[white] dark:before:bg-[black]  before:w-[60px] before:text-center '></div>
