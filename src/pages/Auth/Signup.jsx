@@ -7,10 +7,12 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import {UserIcon, MailIconSign, LockIconSign, EyeIcon, EyeOffIcon, GoogleIcon, UserVerifiedIcon, CheckCircleFilled, CrossCircle} from '../../components/Icons/Icons.jsx'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
 
 const Signup = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [passType ,setPassType] = useState("password")
   const [available ,setAvailable] = useState(null)
 
@@ -44,6 +46,7 @@ try {
   withCredentials: true
 })
   console.log(createUser)
+  dispatch(setUser(createUser.data.user))
   navigate('/users', {replace : true})
 
 } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes,useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './redux/auth/userSlice.js'
 import Users from './pages/Users.jsx'
@@ -22,6 +22,7 @@ import axios from "axios"
 
 const App = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate();
   const user = useSelector(state => state.user.user)
   console.log("Current User:", user)
 
@@ -31,6 +32,7 @@ const App = () => {
       let apiRes = await axios.get("https://whats-app-backend-roan.vercel.app/api/auth/user",{withCredentials:true})
      console.log(apiRes.data.user)
     dispatch(setUser(apiRes.data.user))
+    navigate("/users", {replace:true})
     } catch (error) {
       console.log(error)
     }

@@ -10,6 +10,8 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import cookie from 'js-cookie'
 import { handelLogout } from "../logut.js";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/auth/userSlice.js";
 
 
 
@@ -59,6 +61,7 @@ const DropdownMenuSeparator = () => <div className="my-1 h-px w-[90%] bg-zinc-70
 // --- Exported Dropdown ---
 export default function Dropdown() {
   const navigate = useNavigate();
+   const dispatch = useDispatch()
   return (
     <div className="flex items-center justify-center ">
       <DropdownMenu
@@ -104,7 +107,7 @@ export default function Dropdown() {
           </NavLink>
           {/* ///////////////////////////////// */}
 
-          <div onClick={()=> handelLogout()}>
+          <div onClick={()=> {handelLogout(),dispatch(logoutUser()),navigate('/auth/login',{replace:true})}} >
             <DropdownMenuItem className='hover:bg-[#281c20] hover:text-[#fa99a4]'>
 
               <span><ExitRefreshedIcon className="" /></span>

@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import SearchIcon from '../Icons/SearchIcon';
 import CloseIcon from '../Icons/CloseIcon';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate } from 'react-router-dom';
 import { ChatUnfocusIcon, ExitRefreshedIcon, KeyboardIcon, KeyIcon, LockIcon, Notifications, QuestionIcon } from '../Icons/Icons';
 import picture from '../../assets/picture.jpg'
+import { handelLogout } from '../logut.js';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../redux/auth/userSlice.js';
 
 
 const SettingsIcon = () => (
@@ -25,10 +28,10 @@ const SettingsIcon = () => (
   </svg>
 );
 
-const SettingItems = ({ title, icon, description, className, color }) => {
+const SettingItems = ({ title, icon, description, className, color , onClick}) => {
   return (
     <>
-      <button type='button' className={`${className} flex gap-5 items-center hover:bg-[#242626] w-full py-[10px] px-4 p-2 rounded-[12px] duration-100 ease-in-out cursor-pointer`}>
+      <button type='button' onClick={onClick} className={`${className} flex gap-5 items-center hover:bg-[#242626] w-full py-[10px] px-4 p-2 rounded-[12px] duration-100 ease-in-out cursor-pointer`}>
         <div>{icon}</div>
         <div className='flex flex-col items-start'>
           <span className={`${color}`}>{title}</span>
@@ -40,7 +43,8 @@ const SettingItems = ({ title, icon, description, className, color }) => {
 }
 
 const SettingList = () => {
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
 
@@ -92,7 +96,7 @@ const SettingList = () => {
             <SettingItems title={'Notifications'} icon={<Notifications/>} description={'Message notifications'}   />
             <SettingItems title={'Keyboard shortcuts'} icon={<KeyboardIcon/>} description={'Quick actions'}   />
             <SettingItems title={'Help'} icon={<QuestionIcon />} description={'Help center, contact us, privacy policy'}   />
-            <SettingItems title={'Log out'} icon={<ExitRefreshedIcon fill='#Fb5061'/>} className={'py-[16px]'} color={'text-[#Fb5061]'}   />
+            <SettingItems onClick={() => {handelLogout(),dispatch(logoutUser()),navigate('/auth/login',{replace:true})}} title={'Log out'} icon={<ExitRefreshedIcon fill='#Fb5061'/>} className={'py-[16px]'} color={'text-[#Fb5061]'}   />
 
             {/* ///////////////////////// */}
             <div className='my-3 w-[95%]  m-auto border-t-[1px] border-[#ffffff1a]'>

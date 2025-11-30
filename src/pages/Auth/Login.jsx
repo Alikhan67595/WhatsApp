@@ -7,10 +7,13 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import {UserIcon, MailIconSign, LockIconSign, EyeIcon, EyeOffIcon, GoogleIcon, UserVerifiedIcon, CheckCircleFilled, CrossCircle} from '../../components/Icons/Icons.jsx'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../redux/auth/userSlice.js'
 
 
 const Login = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [passType ,setPassType] = useState("password")
 
 
@@ -41,6 +44,7 @@ try {
   withCredentials: true
 })
   console.log(createUser)
+  dispatch(setUser(createUser.data.user))
   navigate("/users", {replace:true})
 } catch (error) {
   console.log(error)
@@ -96,12 +100,12 @@ try {
 
 {/* ///////////////////////////////////////////////// */}
 
-  <button disabled={isSubmitting} type='submit' onClick={handleSubmit(handelLogin)} className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-white dark:text-black bg-black dark:bg-white dark:hover:bg-[#cfcfcf]'>Create Account</button>
+  <button disabled={isSubmitting} type='submit' onClick={handleSubmit(handelLogin)} className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-black bg-white hover:bg-[#cfcfcf]'>Create Account</button>
 </div>
 
- <div className='w-[100%] h-[1px] text-[14px] grid place-items-center bg-[#9f9fa9] before:text-[#9f9fa9] before:font-semibold before:content-["OR"] before:absolute before:bg-[white] dark:before:bg-[black]  before:w-[60px] before:text-center '></div>
+ <div className='w-[100%] h-[1px] text-[14px] grid place-items-center bg-[#9f9fa9] before:text-[#9f9fa9] before:font-semibold before:content-["OR"] before:absolute before:bg-[black]  before:w-[60px] before:text-center '></div>
 
-<button type='button' className=' max-[400px]:text-[15px] flex justify-center items-center gap-2 w-full p-[7px] bg-balck rounded-[8px] font-semibold text-white bg-black dark:text-black  dark:bg-white dark:hover:bg-[#cfcfcf]'>
+<button type='button' className=' max-[400px]:text-[15px] flex justify-center items-center gap-2 w-full p-[7px]  rounded-[8px] font-semibold text-black  bg-white hover:bg-[#cfcfcf]'>
  <GoogleIcon/> 
   continue with Google
   </button>
