@@ -7,7 +7,9 @@ import {
   LockIcon,
   ExitRefreshedIcon
 } from '../Icons/Icons.jsx'
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import cookie from 'js-cookie'
+import { handelLogout } from "../logut.js";
 
 
 
@@ -56,6 +58,7 @@ const DropdownMenuSeparator = () => <div className="my-1 h-px w-[90%] bg-zinc-70
 
 // --- Exported Dropdown ---
 export default function Dropdown() {
+  const navigate = useNavigate();
   return (
     <div className="flex items-center justify-center ">
       <DropdownMenu
@@ -101,13 +104,13 @@ export default function Dropdown() {
           </NavLink>
           {/* ///////////////////////////////// */}
 
-          <NavLink>
+          <div onClick={()=> handelLogout()}>
             <DropdownMenuItem className='hover:bg-[#281c20] hover:text-[#fa99a4]'>
 
               <span><ExitRefreshedIcon className="" /></span>
               <span className="">Log out</span>
             </DropdownMenuItem>
-          </NavLink>
+          </div>
           {/* ///////////////////////////////// */}
 
         </div>

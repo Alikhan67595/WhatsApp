@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from './redux/auth/userSlice.js'
 import Users from './pages/Users.jsx'
 import Status from './pages/Status.jsx'
 import Profile from './pages/Profile.jsx'
@@ -19,14 +21,16 @@ import DefaultEmptyChat from './pages/Chat/DefaultEmptyChat.jsx'
 import axios from "axios"
 
 const App = () => {
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user.user)
+  console.log("Current User:", user)
 
-  const [user,setUser] = useState(null)
   
   const handelfetchUser = async()=>{
     try {
       let apiRes = await axios.get("https://whats-app-backend-roan.vercel.app/api/auth/user",{withCredentials:true})
      console.log(apiRes.data.user)
-    setUser(apiRes.data.user)
+    dispatch(setUser(apiRes.data.user))
     } catch (error) {
       console.log(error)
     }
