@@ -107,7 +107,7 @@ export default function Dropdown() {
           </NavLink>
           {/* ///////////////////////////////// */}
 
-          <div onClick={()=> {handelLogout(),dispatch(logoutUser()),navigate('/auth/login',{replace:true})}} >
+          <div onClick={()=> {handelLogout(),dispatch(logoutUser()),navigate('/',{replace:true})}} >
             <DropdownMenuItem className='hover:bg-[#281c20] hover:text-[#fa99a4]'>
 
               <span><ExitRefreshedIcon className="" /></span>

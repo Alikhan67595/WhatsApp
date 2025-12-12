@@ -13,6 +13,7 @@ import {
 } from '../Icons/Icons.jsx'
 import { NavLink } from "react-router-dom";
 import picture from '../../assets/picture.jpg'
+import { useSelector } from "react-redux";
 
 
 
@@ -61,17 +62,25 @@ const DropdownMenuSeparator = () => <div className="my-1 h-px w-[90%] bg-zinc-70
 
 // --- Exported Dropdown ---
 export default function Dropdown({setViewphoto}) {
+  let user = useSelector(state => state.user.user)
+   const [photo, setPhoto] = useState(user?.profilePhoto)
+
+
+          let firstLetter = user?.profilePhoto ? user?.profilePhoto : user?.fullName[0].toUpperCase()
+
   return (
     <>
     <div className="flex items-center justify-center ">
       <DropdownMenu
         trigger={
           <div className="flex relative justify-center items-center ">
-                            <span className="flex size-30 bg-amber-400 rounded-full bg-cover justify-center items-center" style={{ backgroundImage: `url(${picture})` }}><div className='h-full w-full flex flex-col justify-center items-center leading-[16px] text-[14px] font-medium hover:bg-[#000000b9] rounded-full text-center opacity-0 hover:opacity-100 duration-150 ease-in-out transition-all select-none cursor-pointer'> 
+                            <span className={` flex size-30  rounded-full bg-cover justify-center items-center relative `} style={{ backgroundImage: `url(${user?.profilePhoto})` }}><div className='h-full w-full flex flex-col justify-center items-center leading-[16px] text-[14px] font-medium hover:bg-[#000000b9] rounded-full text-center opacity-0 hover:opacity-100 duration-150 ease-in-out transition-all select-none cursor-pointer z-50'> 
                                 <span>change</span>
                                  <span>profile</span>  
                                  <span>photo</span>  
-                                 </div></span>
+                                 </div> 
+                                 {!user.profilePhoto && <span className="absolute bg-green-600 rounded-full w-full h-full text-[50px] top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] flex justify-center items-center z-10">{!user?.profilePhoto && firstLetter}</span>}
+                                 </span>
                         </div>
         }
       >

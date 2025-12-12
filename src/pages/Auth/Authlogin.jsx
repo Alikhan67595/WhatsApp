@@ -1,12 +1,13 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 
 const Authlogin = () => {
   return (
     <>
-    
-    <Outlet/>
-    {/* <div>auth</div> */}
+<div>
+<NavLink to="/auth/login">login</NavLink>
+<NavLink to="/auth/signup">signup</NavLink>
+</div>
     </>
   )
 }

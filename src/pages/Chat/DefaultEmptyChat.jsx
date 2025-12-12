@@ -7,8 +7,8 @@ const DefaultEmptyChat = ({className}) => {
   return (
     <>
     <div className='w-full h-full flex flex-col justify-center items-center max-[768px]-hidden'>
-    <div className={`${className} `} >
-      <img src={emptypic} alt="" />
+    <div className={`${className} h-[250px] w-[250px] bg-no-repeat bg-center bg-contain`} style={{backgroundImage : `url(${emptypic})`}} >
+      {/* <img src={emptypic} alt="" /> */}
     </div>
 
 

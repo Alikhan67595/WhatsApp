@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import SearchIcon from '../Icons/SearchIcon';
-import CloseIcon from '../Icons/CloseIcon';
+import SearchIcon from '../Icons/SearchIcon.jsx';
+import CloseIcon from '../Icons/CloseIcon.jsx';
 import { NavLink,useNavigate } from 'react-router-dom';
 import { ChatUnfocusIcon, ExitRefreshedIcon, KeyboardIcon, KeyIcon, LockIcon, Notifications, QuestionIcon } from '../Icons/Icons';
 import picture from '../../assets/picture.jpg'
 import { handelLogout } from '../logut.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/auth/userSlice.js';
+
 
 
 const SettingsIcon = () => (
@@ -46,7 +47,9 @@ const SettingList = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
-
+  const user = useSelector(state => state.user.user)
+  
+let firstLetter = user?.profilePhoto ? user?.profilePhoto : user?.fullName[0].toUpperCase()
 
   return (
     <>
@@ -76,10 +79,10 @@ const SettingList = () => {
           <div className='px-4 py-2 overflow-y-auto pb-[50px]'>
 
             <NavLink to={'/Profile'} className='p-3  flex gap-4 items-center hover:bg-[#242626] rounded-[12px] duration-50 ease-in-out cursor-pointer'>
-              <div className='size-15 bg-amber-500 rounded-full bg-contain bg-cover' style={{backgroundImage : `url(${picture})`}}></div>
+              <div className='size-15 bg-amber-500 rounded-full bg-contain bg-cover text-center flex justify-center items-center text-[30px]' style={{backgroundImage : `url(${user?.profilePhoto})`}}>{!user?.profilePhoto && firstLetter}</div>
               <div className='flex flex-col'>
-                <span>Ali Khan</span>
-                <span className='text-[15px] text-[#FFFFFF99]'>Hey there! I am using WhatsApp.</span>
+                <span>{user?.fullName}</span>
+                <span className='text-[15px] text-[#FFFFFF99]'>{user?.About}</span>
               </div>
             </NavLink>
 
@@ -96,7 +99,7 @@ const SettingList = () => {
             <SettingItems title={'Notifications'} icon={<Notifications/>} description={'Message notifications'}   />
             <SettingItems title={'Keyboard shortcuts'} icon={<KeyboardIcon/>} description={'Quick actions'}   />
             <SettingItems title={'Help'} icon={<QuestionIcon />} description={'Help center, contact us, privacy policy'}   />
-            <SettingItems onClick={() => {handelLogout(),dispatch(logoutUser()),navigate('/auth/login',{replace:true})}} title={'Log out'} icon={<ExitRefreshedIcon fill='#Fb5061'/>} className={'py-[16px]'} color={'text-[#Fb5061]'}   />
+            <SettingItems onClick={() => {handelLogout(),dispatch(logoutUser()),navigate('/',{replace:true})}} title={'Log out'} icon={<ExitRefreshedIcon fill='#Fb5061'/>} className={'py-[16px]'} color={'text-[#Fb5061]'}   />
 
             {/* ///////////////////////// */}
             <div className='my-3 w-[95%]  m-auto border-t-[1px] border-[#ffffff1a]'>

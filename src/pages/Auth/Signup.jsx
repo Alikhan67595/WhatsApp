@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {UserIcon, MailIconSign, LockIconSign, EyeIcon, EyeOffIcon, GoogleIcon, UserVerifiedIcon, CheckCircleFilled, CrossCircle} from '../../components/Icons/Icons.jsx'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+import { setUser } from '../../redux/auth/userSlice.js'
 
 
 const Signup = () => {
@@ -45,9 +46,9 @@ try {
   let createUser = await axios.post("https://whats-app-backend-roan.vercel.app/api/auth/signup",data,{
   withCredentials: true
 })
-  console.log(createUser)
+  console.log(createUser.data.user)
+  navigate("/users")
   dispatch(setUser(createUser.data.user))
-  navigate('/users', {replace : true})
 
 } catch (error) {
   console.log(error)

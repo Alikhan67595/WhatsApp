@@ -110,8 +110,50 @@ input::Selection{
 }
 
 
+.newChat-in,
+.newChat-out {
+  transform-origin: right;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
 
 
+
+
+
+.newChat-in {
+  transform: translateX(0);
+  /* opacity: 1; */
+}
+
+.newChat-out {
+  transform: translateX(-100%);
+  /* opacity: 0; */
+}
+
+
+
+
+.contactInfo-in,
+.contactInfo-out {
+  transform-origin: right;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+
+
+
+
+.contactInfo-in {
+  transform: translateX(0);
+  width: 45%;
+  /* opacity: 1; */
+}
+
+.contactInfo-out {
+  transform: translateX(100%);
+  display: none;
+  /* opacity: 0; */
+}
 
 
 ::-webkit-scrollbar {

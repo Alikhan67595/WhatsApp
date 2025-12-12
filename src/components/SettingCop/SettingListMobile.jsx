@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { BackIcon, Search, Close, ChatFocusIcon } from '../Icons/Icons'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import picture from "../../assets/picture.jpg"
 import Account from './SettingSubComp/Account.jsx'
@@ -54,13 +55,7 @@ export const SettingItems = ({ onClick, icon, title, desc, Component, isOpen, se
 
 
 
-const SubComponent = () => {
-  return (
-    <>
 
-    </>
-  )
-}
 
 
 const SettingListMobile = () => {
@@ -87,7 +82,8 @@ const SettingListMobile = () => {
 
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-
+let user = useSelector(state => state.user.user)
+let firstLetter = user?.profilePhoto ? user?.profilePhoto : user?.fullName[0].toUpperCase()
 
   const handleOpen = () => {
     setAnimate(true);
@@ -109,7 +105,7 @@ const SettingListMobile = () => {
             {!open
               &&
               <div className='duration-150 ease-in-out flex gap-4  p-2  justify-between items-center w-screen '>
-                <NavLink to={'/chats'}><BackIcon /></NavLink>
+                <NavLink to={'/users'}><BackIcon /></NavLink>
                 <div className='flex-1 text-[18px] font-medium'>Settings</div>
                 <div onClick={handleOpen}><Search /></div>
               </div>
@@ -132,11 +128,11 @@ const SettingListMobile = () => {
 
 
         <NavLink to={'/profile'} className='mt-[60px] flex gap-5 px-5 py-4 items-center border-b-[1px] border-[#ffffff1a]'>
-          <div className='size-20 rounded-full bg-cover' style={{ backgroundImage: `url(${picture})` }}></div>
+          <div className='size-20 rounded-full bg-cover flex justify-center items-center text-[30px] bg-green-600' style={{ backgroundImage: `url(${user?.profilePhoto})` }}>{!user.profilePhoto && firstLetter}</div>
           <div className='flex flex-col gap-2'>
-            <div className='text-[17px]'>Ali Khan</div>
-            <div className='text-[14px]'>alikhan@gmail.com</div>
-            <div className='text-[12px] py-1 border-[#ffffff1a] border-[1px] rounded-[15px] text-center flex justify-center items-center'>How are you</div>
+            <div className='text-[17px]'>{user?.fullName}</div>
+            <div className='text-[14px]'>{user?.email}</div>
+            <div className='text-[12px] px-2 py-1 border-[#ffffff1a] border-[1px] rounded-[15px] text-center flex justify-center items-center'>{user?.About}</div>
           </div>
         </NavLink>
 

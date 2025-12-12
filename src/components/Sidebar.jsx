@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import profileImg from '../assets/picture.jpg'
+import {useSelector} from 'react-redux'
 import {
   CommunityUnFocus,
   CommunityFocus,
@@ -20,9 +20,11 @@ import {
 
 
 const Sidebar = () => {
+  const user = useSelector(state => state.user.user)
+  let firstLetter = user?.profilePhoto ? user?.profilePhoto : user?.fullName[0].toUpperCase()
   return (
     <>
-      <nav className='bg-[#1d1f1f] h-screen w-[40px] py-[10px] px-[32px] border-r-[1px] border-[#ffffff1a] hidden md:flex flex-col'>
+      <nav className='bg-[#1d1f1f] h-screen w-[40px] py-[10px] px-[32px] border-r-[1px] border-[#ffffff1a] hidden md:flex flex-col relative z-60'>
         <div className='flex flex-col gap-1 items-center h-[90%]'>
 
    <NavLink  className={({isActive})=>`${(isActive ? 'bg-[#272929]' : 'hover:bg-[#272929]')} size-[40px] flex justify-center items-center rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#21c063]`} to={'/users'}>{({isActive})=>(isActive ? <div><ChatFocusIcon/></div> : <div><ChatUnfocusIcon/></div>)}</NavLink>
@@ -38,7 +40,7 @@ const Sidebar = () => {
 
    <NavLink className={({isActive})=>`${(isActive ? 'bg-[#272929]' : 'hover:bg-[#272929]')} size-[40px] flex justify-center items-center rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#21c063]`} to={'/setting'}>{({isActive})=>(isActive ? <div><SettingsIcon/></div> : <div><SettingunFill/></div>)}</NavLink>
 
-   <NavLink className={({isActive})=>`${(isActive ? 'bg-[#272929]' : 'hover:bg-[#272929]')} size-[40px] flex justify-center items-center rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#21c063]`} to={'/profile'}>{({isActive})=>(<img className={`${isActive ? 'outline-[#dfdfdf] outline-[2px]' : 'outline-none'} size-[28px] rounded-full bg-cover bg-contain`} src={profileImg} alt="" />)}</NavLink>
+   <NavLink className={({isActive})=>`${(isActive ? 'bg-[#272929]' : 'hover:bg-[#272929]')} size-[40px] flex justify-center items-center rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#21c063]`} to={'/profile'}>{({isActive})=>(user?.profilePhoto ? <img className={`${isActive ? 'outline-[#dfdfdf] outline-[2px]' : 'outline-none'} size-[28px] rounded-full bg-cover bg-contain`} src={user?.profilePhoto} alt="" /> : <div className={`${isActive ? 'outline-[#dfdfdf] outline-[2px]' : 'outline-none'} size-[28px] rounded-full bg-cover bg-contain flex justify-center items-center bg-green-600`}>{!user.profilePhoto && firstLetter}</div>)}</NavLink>
 
         </div>
       </nav>

@@ -45,7 +45,7 @@ try {
 })
   console.log(createUser)
   dispatch(setUser(createUser.data.user))
-  navigate("/users", {replace:true})
+  navigate("/users")
 } catch (error) {
   console.log(error)
 }
@@ -100,7 +100,7 @@ try {
 
 {/* ///////////////////////////////////////////////// */}
 
-  <button disabled={isSubmitting} type='submit' onClick={handleSubmit(handelLogin)} className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-black bg-white hover:bg-[#cfcfcf]'>Create Account</button>
+  <button disabled={isSubmitting} type='submit' onClick={handleSubmit(handelLogin)} className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-black bg-white hover:bg-[#cfcfcf]'>Log in</button>
 </div>
 
  <div className='w-[100%] h-[1px] text-[14px] grid place-items-center bg-[#9f9fa9] before:text-[#9f9fa9] before:font-semibold before:content-["OR"] before:absolute before:bg-[black]  before:w-[60px] before:text-center '></div>

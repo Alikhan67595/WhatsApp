@@ -3,18 +3,24 @@ import { AccountCircleIcon, WebIcCheck, PencilRefreshedIcon, Mood, PhoneFillicon
 import picture from '../../assets/picture.jpg'
 import Dropdown from './ProfileDropdownMenu.jsx'
 import { NavLink } from 'react-router-dom'
+import { useSelector,useDispatch } from 'react-redux'
+import { setUser } from '../../redux/auth/userSlice.js'
+import axios from 'axios'
 
 
 
 
 const Profilelist = () => {
 
+    let user = useSelector(state => state.user.user)
+    let dispatch = useDispatch()
     const [isFocus, setIsFocus] = useState(false)
     const [desisFocus, setDesisFocus] = useState(false)
     const nameInput = useRef(null)
     const desInput = useRef(null)
-    const [inputlength, setInputLength] = useState("Ali khan")
+    const [inputlength, setInputLength] = useState(user?.fullName)
     const [viewphoto, setViewphoto] = useState(false)
+
 
 
 
@@ -31,6 +37,31 @@ const Profilelist = () => {
     }, [isFocus, desisFocus])
 
 
+
+    const handelNameUpdate = async ()=>{
+        try {
+           let changeName = await axios.put(`https://whats-app-backend-roan.vercel.app/api/user/update/${user?._id}`,{fullName:nameInput.current.value},{withCredentials:true}) 
+           dispatch(setUser(changeName.data.user))
+           setIsFocus(false)
+           
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    const handelAboutUpdate = async ()=>{
+        try {
+           let changeName = await axios.put(`https://whats-app-backend-roan.vercel.app/api/user/update/${user?._id}`,{About:desInput.current.value},{withCredentials:true}) 
+           dispatch(setUser(changeName.data.user))
+           setDesisFocus(false)
+           
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     return (
         <>
 
@@ -43,9 +74,9 @@ const Profilelist = () => {
                 <main className='p-2 flex flex-col h-screen max-[768px]:w-screen min-[768px]:w-[32%] min-[768px]:min-w-100 md:max-w-160   '>
                     {/* /////////////////// */}
                     <div className='flex items-center '>
-                        <NavLink to={"/setting"} className='min-[768px]:hidden pl-2'><BackIcon/></NavLink>
-                    <h1 className='px-3 p-2  text-[20px] font-semibold max-[768px]:text-[18px] max-[768px]:font-medium '>Profile</h1>
-</div>
+                        <NavLink to={"/setting"} className='min-[768px]:hidden pl-2'><BackIcon /></NavLink>
+                        <h1 className='px-3 p-2  text-[20px] font-semibold max-[768px]:text-[18px] max-[768px]:font-medium '>Profile</h1>
+                    </div>
 
 
                     <div className='w-full min-[768px]:py-8 pt-8 flex flex-col gap-7 max-[768px]:overflow-hidden min-[768px]:overflow-y-auto overflow-x-hidden z-10 relative'>
@@ -75,7 +106,9 @@ const Profilelist = () => {
 
                                             </div>
                                         }
-                                        <button type='button' className='pl-2 duration-150 ease-in-out transition-all cursor-pointer' onClick={() => setIsFocus(!isFocus)}>{!isFocus ? <PencilRefreshedIcon /> : <WebIcCheck />}</button>
+                                        <button type='button' onClick={() => setIsFocus(!isFocus)} className='pl-2 duration-150 ease-in-out transition-all cursor-pointer'>{!isFocus && <PencilRefreshedIcon />}</button>
+
+                                        <button type='button' className='pl-2 duration-150 ease-in-out transition-all cursor-pointer' onClick={() => handelNameUpdate()}>{isFocus && <WebIcCheck />}</button>
                                     </div>
 
 
@@ -87,7 +120,7 @@ const Profilelist = () => {
                             <div className='w-full flex flex-col p-5 gap-3'>
                                 <div className='text-[15px] text-[#FFFFFF80] font-semibold'>About</div>
                                 <div className={`${desisFocus ? 'focus-within:border-[#21c063]' : 'border-none'}  duration-100 ease-in-out border-[#FFFFFF80] w-full flex border-b-[2px]  pb-1`} >
-                                    <input disabled={!desisFocus} ref={desInput} className={`w-full outline-none text-[17px] selection:bg-[#1a5a35] `} type="text" defaultValue={'Hey there! I am using WhatsApp.'} maxLength={126} />
+                                    <input disabled={!desisFocus} ref={desInput} className={`w-full outline-none text-[17px] selection:bg-[#1a5a35] `} type="text" defaultValue={user?.About} maxLength={126} />
 
                                     <div className='flex duration-100 ease-in-out'>
 
@@ -97,7 +130,9 @@ const Profilelist = () => {
                                                 <Mood />
                                             </button>
                                         }
-                                        <button type='button' className='cursor-pointer pl-2 duration-150 ease-in-out transition-all' onClick={() => setDesisFocus(!desisFocus)}>{!desisFocus ? <PencilRefreshedIcon /> : <WebIcCheck />}</button>
+                                        <button type='button' className='cursor-pointer pl-2 duration-150 ease-in-out transition-all' onClick={() => setDesisFocus(!desisFocus)}>{!desisFocus && <PencilRefreshedIcon />}</button>
+
+                                        <button type='button' className='cursor-pointer pl-2 duration-150 ease-in-out transition-all' onClick={() => handelAboutUpdate()}>{desisFocus && <WebIcCheck />}</button>
                                     </div>
 
 
@@ -114,7 +149,7 @@ const Profilelist = () => {
                                             <MailIcon />
                                         </span>
                                         <span>
-                                            alikhan@gmail.com
+                                            {user?.email}
                                         </span>
                                     </div>
 
@@ -152,14 +187,14 @@ const Profilelist = () => {
                 {/* //////////////// */}
 
                 {
-                    viewphoto &&
-                    <div onClick={()=>setViewphoto(false)} className='w-screen h-screen absolute bg-[#161717e3] top-0 left-0  z-100 flex justify-center items-center flex-col duration-1000 ease-in-out transition-all'>
+                    (viewphoto && user?.profilePhoto) &&
+                    <div onClick={() => setViewphoto(false)} className='w-screen h-screen absolute bg-[#161717e3] top-0 left-0  z-100 flex justify-center items-center flex-col duration-1000 ease-in-out transition-all'>
                         <div className='w-full h-[50px] fixed top-0   bg-[#161717] px-10 py-2'>
-                          <div className='flex gap-3 text-[18px] font-semibold  items-center'>  <span className='h-[40px] w-[40px] rounded-full bg-cover' style={{backgroundImage : `url(${picture})`}}></span> <span>Ali Khan</span></div>
+                            <div className='flex gap-3 text-[18px] font-semibold  items-center'>  <span className='h-[40px] w-[40px] rounded-full bg-cover' style={{ backgroundImage: `url(${user?.profilePhoto})` }}></span> <span>{user?.fullName}</span></div>
                         </div>
 
 
-                        <div className='h-[640px] w-[640px] max-[1440PX]:h-[540px] max-[1440PX]:w-[540px] max-[1200PX]:w-[500px] max-[1200PX]:w-[500px] max-[400px]:w-[95%] max-[400px]:h-[50%]  mt-[50px] overflow-hidden bg-cover' style={{backgroundImage : `url(${picture})`}}>
+                        <div className='h-[640px] w-[640px] max-[1440PX]:h-[540px] max-[1440PX]:w-[540px] max-[1200PX]:w-[500px] max-[1200PX]:w-[500px] max-[400px]:w-[95%] max-[400px]:h-[50%]  mt-[50px] overflow-hidden bg-cover' style={{ backgroundImage: `url(${user?.profilePhoto})` }}>
                         </div>
                     </div>
                 }

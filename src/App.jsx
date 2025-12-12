@@ -17,39 +17,36 @@ import Favorites from './pages/Chat/Favorites.jsx'
 import Groups from './pages/Chat/Groups.jsx'
 import CallLog from './pages/CallLog.jsx'
 import UserChats from './pages/Chat/UserChats.jsx'
-import DefaultEmptyChat from './pages/Chat/DefaultEmptyChat.jsx'
-import axios from "axios"
+import axios from 'axios'
+
+
 
 const App = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate();
   const user = useSelector(state => state.user.user)
   console.log("Current User:", user)
+  const dispatch = useDispatch()
+
+
+
+  const handelFetchUser = async()=>{
+      try {
+         let apiRes = await axios.get("https://whats-app-backend-roan.vercel.app/api/user/fetchuser",{withCredentials:true})
+         console.log(apiRes.data.user)
+        dispatch(setUser(apiRes.data.user))
+      } catch (error) {
+        
+      }
+    }
+
+    useEffect(()=>{
+      handelFetchUser()
+    },[])
 
   
-  const handelfetchUser = async()=>{
-    try {
-      let apiRes = await axios.get("https://whats-app-backend-roan.vercel.app/api/auth/user",{withCredentials:true})
-     console.log(apiRes.data.user)
-    dispatch(setUser(apiRes.data.user))
-    navigate("/users", {replace:true})
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  let routes;
 
-  useEffect(()=>{
-
-    // handel fetch user
-
-    handelfetchUser()
-  },[])
-
-
-  return (
-    <>
-   { user ?
-      <Routes>
+  if(user){
+routes = (<Routes>
       <Route path="/" element={<Users/>} />
       <Route path='/chat' element={<UserChats />}/>
      
@@ -70,18 +67,23 @@ const App = () => {
        
       <Route path='*' element={<>404 Error</>} />
 
-    </Routes>
-    :
-<Routes>
-          <Route path="/" element={<Login />} />
+    </Routes>)
+  } else if(!user){
+routes = (
+  <Routes>
+          <Route path="/" element={<Authlogin />} />
         <Route path='/auth/login' element={<Login/>} />
         <Route path="/auth/signup" element={<Signup />} />
-        <Route path="*" element={<Login />} />
+        <Route path="*" element={<Authlogin />} />
      
 </Routes>
+)
+  }
 
 
-}
+  return (
+    <>
+    {routes}
   </>
   )
 }

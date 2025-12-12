@@ -95,9 +95,11 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
         </div>
         {/* /////////////////////////////////// */}
       </main>
-      <div className={`${contactInfo ? 'translate-x-0 flex' : 'translate-x-full hidden'} w-[45%] transform transition-transform duration-1000 ease-in-out max-w-[580px] max-[1300px]:w-[100%] max-[1300px]:flex-1`}>
-        <ContactInfo setContactInfo={setContactInfo} />
-      </div>
+      {/* <div className={`${contactInfo ? 'contactInfo-in' : 'contactInfo-out'} w-[45%]`}>
+      <div className={` w-full  max-w-[580px] max-[1300px]:w-[100%] max-[1300px]:flex-1`}> */}
+        <ContactInfo setContactInfo={setContactInfo} contactInfo={contactInfo} />
+      {/* </div>
+      </div> */}
     </>
   )
 }
