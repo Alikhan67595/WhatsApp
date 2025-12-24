@@ -40,7 +40,7 @@ const Profilelist = () => {
 
     const handelNameUpdate = async ()=>{
         try {
-           let changeName = await axios.put(`https://whats-app-backend-roan.vercel.app/api/user/update/${user?._id}`,{fullName:nameInput.current.value},{withCredentials:true}) 
+           let changeName = await axios.put(`https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/user/update/${user?._id}`,{fullName:nameInput.current.value},{withCredentials:true}) 
            dispatch(setUser(changeName.data.user))
            setIsFocus(false)
            
@@ -52,7 +52,7 @@ const Profilelist = () => {
 
     const handelAboutUpdate = async ()=>{
         try {
-           let changeName = await axios.put(`https://whats-app-backend-roan.vercel.app/api/user/update/${user?._id}`,{About:desInput.current.value},{withCredentials:true}) 
+           let changeName = await axios.put(`https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/user/update/${user?._id}`,{About:desInput.current.value},{withCredentials:true}) 
            dispatch(setUser(changeName.data.user))
            setDesisFocus(false)
            

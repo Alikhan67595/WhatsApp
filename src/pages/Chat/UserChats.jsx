@@ -35,7 +35,7 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
   let handelSendMessage = async () =>{
     try {
       if (inputValue === '' ) return
-      let sendMessage = await axios.post(`https://whats-app-backend-roan.vercel.app/api/messages/sendmessages`,{message: inputValue , receiverId:selectedUserId },{withCredentials:true})
+      let sendMessage = await axios.post(`https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/messages/sendmessages`,{message: inputValue , receiverId:selectedUserId },{withCredentials:true})
       dispatch(addMessage(sendMessage.data.addMessage))
       setInputValue('')
       setInputLength(0)

@@ -33,7 +33,7 @@ const App = () => {
 
   const handelFetchUser = async()=>{
       try {
-         let apiRes = await axios.get("https://whats-app-backend-roan.vercel.app/api/user/fetchuser",{withCredentials:true})
+         let apiRes = await axios.get("https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/user/fetchuser",{withCredentials:true})
          console.log(apiRes.data.user)
         dispatch(setUser(apiRes.data.user))
         setLoading(false)

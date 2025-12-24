@@ -28,7 +28,7 @@ const UserComponent = ({image, name , time , messageType, contactId}) => {
     
     let handelFetchUserMessage = async (contactUserId) =>{
       try {
-        let message =  await axios.get(`https://whats-app-backend-roan.vercel.app/api/messages/getmessages/${contactUserId}`,{withCredentials:true})
+        let message =  await axios.get(`https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/messages/getmessages/${contactUserId}`,{withCredentials:true})
         console.log(message.data.messages)
         dispatch(setMessages(message.data.messages))
       } catch (error) {
