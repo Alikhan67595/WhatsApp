@@ -193,3 +193,64 @@ body:hover::-webkit-scrollbar-thumb,
 input::placeholder{
   user-select: none;
 }
+
+.sender {
+    position: relative;
+    color: #e9edef;
+    font-family: sans-serif;
+    font-size: 14px;
+    border-radius: 7.5px;
+    /* display: inline-flex;
+    align-items: flex-end; */
+
+    min-width: 100px;
+    transform-style: preserve-3d;
+    background-color: #144d37;
+  }
+
+
+  .sender::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -9px; /* Tail ko bahar nikalne ke liye */
+    width: 25px;
+    height: 30px;
+    /* Is shape ko create karne ka main logic */
+    background-color: #144d37;
+    clip-path: polygon(0 0, 0% 100%, 100% 0);
+    border-radius: 0px 5px 30px 0px ;
+    transform: translateZ(-1px); 
+    z-index: -1;
+  }
+
+
+
+  .receiver {
+    position: relative;
+    background-color: #242626; /* WhatsApp Receiver Dark Grey */
+    color: #e9edef;
+    font-family: sans-serif;
+    font-size: 14px;
+    border-radius: 7.5px;
+    /* display: inline-flex;
+    align-items: flex-end; */
+  
+    min-width: 60px;
+    transform-style: preserve-3d;
+}
+
+.receiver::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -9px; /* Right ki jagah Left */
+    width: 25px;
+    height: 30px;
+    background-color: #242626;
+    /* Polygon ko flip kiya gaya hai tail ko left dikhane ke liye */
+    clip-path: polygon(100% 0, 100% 100%, 0 0); 
+    border-radius: 5px 0px 0px 30px; /* Radius bhi flip kar di */
+    transform: translateZ(-1px);
+    z-index: -1;
+}

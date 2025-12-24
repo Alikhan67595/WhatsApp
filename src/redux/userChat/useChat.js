@@ -1,0 +1,55 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+    activeChatUserId: null, // kis user ki chat open hai
+    isChatOpen: false,      // chat window open hai ya nahi
+    messages: [],           // us user ke messages
+    activeChatUserName: null,      // naya field
+    activeChatUserProfile: null,   // naya field
+};
+
+const chatSlice = createSlice({
+    name: "chat",
+    initialState,
+    reducers: {
+
+        // 👉 contact pe click
+        openChat: (state, action) => {
+            state.activeChatUserId = action.payload.id;
+            state.activeChatUserName = action.payload.name;
+            state.activeChatUserProfile = action.payload.profilePhoto;
+            state.isChatOpen = true;
+            if (state.activeChatUserId !== action.payload.id) {
+    state.messages = []; // sirf tab clear karna jab user change ho
+}
+        },
+
+        // 👉 back / close button
+        closeChat: (state) => {
+            state.activeChatUserId = null;
+            state.activeChatUserName = null;
+            state.activeChatUserProfile = null;
+            state.isChatOpen = false;
+            state.messages = [];
+        },
+
+        // 👉 server se messages load
+        setMessages: (state, action) => {
+            state.messages = action.payload;
+        },
+
+        // 👉 naya message add
+        addMessage: (state, action) => {
+            state.messages.push(action.payload);
+        },
+    },
+});
+
+export const {
+    openChat,
+    closeChat,
+    setMessages,
+    addMessage,
+} = chatSlice.actions;
+
+export default chatSlice.reducer;

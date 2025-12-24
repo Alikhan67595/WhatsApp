@@ -9,10 +9,11 @@ import NewChat from './NewChat.jsx'
 
 
 
-const ContactList = ({ isUserChats, setIsUserChats }) => {
+const ContactList = ({ isUserChats, setIsUserChats}) => {
 
     const [search, setSearch] = useState('')
     const [isNewChat, setIsNewChat] = useState(false)
+
 
 
 

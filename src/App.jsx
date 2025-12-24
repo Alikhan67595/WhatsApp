@@ -18,6 +18,7 @@ import Groups from './pages/Chat/Groups.jsx'
 import CallLog from './pages/CallLog.jsx'
 import UserChats from './pages/Chat/UserChats.jsx'
 import axios from 'axios'
+import socket from './socket.js'
 
 
 
@@ -26,6 +27,8 @@ const App = () => {
   console.log("Current User:", user)
   const dispatch = useDispatch()
 
+  const [loading , setLoading] = useState(true)
+
 
 
   const handelFetchUser = async()=>{
@@ -33,6 +36,7 @@ const App = () => {
          let apiRes = await axios.get("https://whats-app-backend-roan.vercel.app/api/user/fetchuser",{withCredentials:true})
          console.log(apiRes.data.user)
         dispatch(setUser(apiRes.data.user))
+        setLoading(false)
       } catch (error) {
         
       }
@@ -41,6 +45,33 @@ const App = () => {
     useEffect(()=>{
       handelFetchUser()
     },[])
+
+
+    useEffect(()=>{
+
+
+      if(!user?._id) return
+
+      //   socket.on("connect",()=>{
+      //   console.log("socket Id", socket.id)
+        
+        
+      //   socket.emit("join-room",user._id)
+      // })
+
+   if(user && user?._id) {
+    socket.connect()
+       
+      socket.on("connect");
+
+
+      socket.emit("join-room",user._id)
+    }
+
+
+      
+
+    },[user?._id])
 
   
   let routes;
@@ -83,7 +114,10 @@ routes = (
 
   return (
     <>
-    {routes}
+    {
+      loading ? (<>Loading...</>) :
+    (routes)  
+    }
   </>
   )
 }

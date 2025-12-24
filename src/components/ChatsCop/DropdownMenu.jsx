@@ -38,7 +38,7 @@ const DropdownMenu = ({ children, trigger }) => {
       </div>
 
       {isOpen && (
-        <div className="min-[768px]:p-2  max-[768px]:py-4 absolute max-[768px]:bg-[#13181c] max-[768px]:right-0 min-[768px]:right-[5] mt-3 w-50 rounded-2xl  bg-[#1d1f1f]   ring-opacity-50  z-50 animate-in fade-in-0 zoom-in-95">
+        <div className="min-[768px]:p-2  max-[768px]:py-4 absolute max-[768px]:bg-[#13181c] max-[768px]:right-0 min-[768px]:right-[5] mt-3 w-50 rounded-2xl  bg-[#1d1f1f]   ring-opacity-50  z-100 animate-in fade-in-0 zoom-in-95">
           {children}
         </div>
       )}

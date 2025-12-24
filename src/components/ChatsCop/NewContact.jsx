@@ -58,7 +58,7 @@ const NewContact = ({ setIsNewContact }) => {
   // handel check userName 
   const handelCheckUserName = async () => {
     try {
-      let findUser = await axios.post(`https://whats-app-backend-roan.vercel.app/api/user/findcontact`, { emailOrUserName: emailorUserName }, {
+      let findUser = await axios.post(`http://localhost:3000/api/user/findcontact`, { emailOrUserName: emailorUserName }, {
         withCredentials: true
       })
       setAvailable(findUser.data.user)
@@ -80,7 +80,7 @@ const NewContact = ({ setIsNewContact }) => {
   const handelsaveContact = async (data) => {
     try {
      let {contactName , emailorUserName} = data
-      let saveContact = await axios.post(`https://whats-app-backend-roan.vercel.app/api/user/addcontact/${user._id}`, {contactId, contactName,emailorUserName,profilePhoto} , {
+      let saveContact = await axios.post(`http://localhost:3000/api/user/addcontact/${user._id}`, {contactId, contactName,emailorUserName,profilePhoto} , {
         withCredentials: true
       })
 

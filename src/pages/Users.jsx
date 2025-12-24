@@ -9,6 +9,7 @@ import DefaultEmptyChat from './Chat/DefaultEmptyChat.jsx'
 const Users = () => {
 
   const [isUserChats, setIsUserChats] = useState(false)
+      // const [selectContacts, setselectContacts] = useState(null)
 
   return (
     <>
