@@ -4,14 +4,18 @@ import {  useOutletContext } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {openChat, setMessages} from '../../redux/userChat/useChat.js'
 import axios from 'axios'
+import { api_server_key } from '../../server.js'
+import { useQueryClient, useQuery} from '@tanstack/react-query'
 
 
 const UserComponent = ({image, name , time , messageType, contactId}) => {
 
+    const queryClient = useQueryClient()
   const {isUserChats, setIsUserChats} = useOutletContext()
   const dispatch = useDispatch()
   const isChatOpen = useSelector(state => state.chat.isChatOpen)  
   const contactUserId = useSelector(state => state.chat.activeChatUserId)  
+
   
 
     const isActive  = contactUserId === contactId
@@ -28,13 +32,18 @@ const UserComponent = ({image, name , time , messageType, contactId}) => {
     
     let handelFetchUserMessage = async (contactUserId) =>{
       try {
-        let message =  await axios.get(`https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/messages/getmessages/${contactUserId}`,{withCredentials:true})
+        let message =  await axios.get(`${api_server_key}/api/messages/getmessages/${contactUserId}`,{withCredentials:true})
         console.log(message.data.messages)
         dispatch(setMessages(message.data.messages))
+      //  return message.data.messages
       } catch (error) {
         console.log(error)
       }
     }
+
+    // const {data} = useQuery({
+    //   queryKey : []
+    // })
     
     
     useEffect(()=>{
@@ -78,7 +87,8 @@ const All = () => {
   let user = useSelector(state => state.user.user)
 
   const [contacts, setContacts] = useState([])
-  
+
+
 
   useEffect(()=>{
     setContacts(user?.contacts)

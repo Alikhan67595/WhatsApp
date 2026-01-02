@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 import { setUser } from '../../redux/auth/userSlice.js'
 import axios from 'axios'
+import { api_server_key } from '../../server.js'
 
 
 
@@ -40,7 +41,7 @@ const Profilelist = () => {
 
     const handelNameUpdate = async ()=>{
         try {
-           let changeName = await axios.put(`https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/user/update/${user?._id}`,{fullName:nameInput.current.value},{withCredentials:true}) 
+           let changeName = await axios.put(`${api_server_key}/api/user/update/${user?._id}`,{fullName:nameInput.current.value},{withCredentials:true}) 
            dispatch(setUser(changeName.data.user))
            setIsFocus(false)
            
@@ -52,7 +53,7 @@ const Profilelist = () => {
 
     const handelAboutUpdate = async ()=>{
         try {
-           let changeName = await axios.put(`https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/user/update/${user?._id}`,{About:desInput.current.value},{withCredentials:true}) 
+           let changeName = await axios.put(`${api_server_key}/api/user/update/${user?._id}`,{About:desInput.current.value},{withCredentials:true}) 
            dispatch(setUser(changeName.data.user))
            setDesisFocus(false)
            

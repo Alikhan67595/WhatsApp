@@ -12,6 +12,7 @@ import MessageCop from '../../components/ChatsCop/messageCop.jsx'
 import axios from 'axios'
 import { set } from 'react-hook-form'
 import socket from '../../socket.js'
+import { api_server_key } from '../../server.js'
 
 
 
@@ -35,7 +36,7 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
   let handelSendMessage = async () =>{
     try {
     
-      let sendMessage = await axios.post(`https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/messages/sendmessages`,{message: inputValue , receiverId:selectedUserId },{withCredentials:true})
+      let sendMessage = await axios.post(`${api_server_key}/api/messages/sendmessages`,{message: inputValue , receiverId:selectedUserId },{withCredentials:true})
       console.log(sendMessage.data.addMessage)
       dispatch(addMessage(sendMessage.data.addMessage))
       setInputValue('')
@@ -57,15 +58,8 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
       dispatch(addMessage(message))
     }
 
-    const senderMessage = (message)=>{
-      console.log(message)
-      dispatch(addMessage(message))
-    }
-
     socket.on("receive-message", receiveMessage) 
 
-
-    
 
     return () => {
     socket.off("receive-message", receiveMessage)
@@ -79,7 +73,7 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
 
   return (
     <>
-      <main className=' max-[768px]:w-full flex-1 h-screen object-fill  overflow-hidden  relative'>
+      <main className='  max-[768px]:w-full flex-1 h-screen object-fill  overflow-hidden  relative'>
         <div
           className='z-1 absolute opacity-5 max-[768px]:opacity-12 w-full h-full top-0 left-0 min-[500px]:object-fill max-[500px]:bg-cover'
           style={{ backgroundImage: `url(${background})` }}
@@ -87,7 +81,7 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
         <nav className='relative z-70 flex items-center w-full p-4 h-[64px] bg-[#161717] '>
           <div onClick={() => setContactInfo(true)} className='flex-1 flex items-center gap-4 cursor-pointer mr-8 select-none'>
             <div className='size-9 bg-cover bg-contain rounded-full bg-white text-black flex justify-center items-center text-[22px] font-semibold' style={{ backgroundImage: `url(${contactPhoto})` }}>{!profileImage && userName[0].toUpperCase()}</div>
-            <div className=' font-semibold text-[18px]'>{userName}</div>
+            <div className=' text-[18px]'>{userName}</div>
           </div>
           <button className='p-[8px] hover:bg-[#3a3c3c] rounded-full duration-200 transition-colors ease-in-out '><VideoCallIcon /></button>
           <button className='p-[8px] hover:bg-[#3a3c3c] rounded-full duration-200 transition-colors ease-in-out '><PhoneFillicon /></button>
@@ -104,7 +98,7 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
                 <div key={message?._id} className={`${message?.senderId === user?._id ? "justify-end " : "justify-start"}  w-full flex  my-1 `} >
 
     
-                   <MessageCop message={message.message} isSender={message?.senderId === user?._id} isRead={message?.isRead}/>
+                   <MessageCop message={message.message} isSender={message?.senderId === user?._id} isRead={message?.isRead} time={message?.deliveredTime}/>
             
                 </div>
 

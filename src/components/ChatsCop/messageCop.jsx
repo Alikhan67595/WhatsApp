@@ -1,16 +1,24 @@
 import React from 'react'
 import { MsgCheckIcon } from '../Icons/Icons.jsx'
 
-const MessageCop = ({ message, isSender , isRead}) => {
+const MessageCop = ({ message, isSender , isRead , time}) => {
+
+
+    let formattedTime = new Date(time).toLocaleTimeString('en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true
+})
+
 
     return (
-        <div className={`${isSender ? 'sender' : 'receiver'}  p-[2px] px-2 flex flex-row  gap-1`}>
-            <div className=' w-full flex items-center justify-start    '>
+        <div className={`${isSender ? 'sender' : 'receiver'} customFont  p-[2px] px-2 flex flex-row  gap-1`}>
+            <div className=' w-full flex items-center justify-start flex-wrap   '>
                 {message}
             </div>
 
             <div className=' flex  text-[11px] justify-center items-center pt-3 gap-[4px]'>
-            <div className='text-[#FFFFFF99]'>10:00<span className='opacity-0'>.</span>AM</div>
+            <div className='text-[#FFFFFF99] whitespace-nowrap'>{formattedTime}</div>
             {isSender && <div><MsgCheckIcon className={`${isRead ? "text-[#5ad2e2]" : "text-[#FFFFFF99]"}`}/></div>}
             </div>
         </div>

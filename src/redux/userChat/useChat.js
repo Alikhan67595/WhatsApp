@@ -33,26 +33,15 @@ const chatSlice = createSlice({
             state.messages = [];
         },
 
-    addMessage: (state, action) => {
-    // 1. Check karein agar messages undefined hai to usey empty array banayein
-    if (!state.messages) {
-        state.messages = [];
-    }
-    
-    // 2. Sirf tab push karein agar action.payload valid message ho
-    if (action.payload && action.payload._id) {
-        // Duplicate check (live socket mein aksar message double trigger ho jata hai)
-        const exists = state.messages.find(m => m._id === action.payload._id);
-        if (!exists) {
-            state.messages.push(action.payload);
-        }
-    }
-},
+        // 👉 server se messages load
+        setMessages: (state, action) => {
+            state.messages = action.payload;
+        },
 
-setMessages: (state, action) => {
-    // 3. Agar backend se data na aaye to empty array set karein (taaki push crash na kare)
-    state.messages = Array.isArray(action.payload) ? action.payload : [];
-}
+        // 👉 naya message add
+        addMessage: (state, action) => {
+            state.messages.push(action.payload);
+        },
     },
 });
 

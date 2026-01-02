@@ -9,6 +9,7 @@ import {UserIcon, MailIconSign, LockIconSign, EyeIcon, EyeOffIcon, GoogleIcon, U
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../redux/auth/userSlice.js'
+import { api_server_key } from '../../server.js'
 
 
 const Login = () => {
@@ -40,7 +41,7 @@ const findusername = watch("userName");
   const handelLogin = async(data)=>{
 try {
 
-  let createUser = await axios.post("https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/auth/login",data,{
+  let createUser = await axios.post(`${api_server_key}/api/auth/login`,data,{
   withCredentials: true
 })
   console.log(createUser)

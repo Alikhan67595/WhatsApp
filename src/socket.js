@@ -1,5 +1,6 @@
 import {io} from "socket.io-client";
+import { api_server_key } from "./server";
 
-const socket = io('https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app',{withCredentials:true})   
+const socket = io(`${api_server_key}`,{withCredentials:true})   
 
 export default socket;

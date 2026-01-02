@@ -9,6 +9,7 @@ import {UserIcon, MailIconSign, LockIconSign, EyeIcon, EyeOffIcon, GoogleIcon, U
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../redux/auth/userSlice.js'
+import { api_server_key } from '../../server.js'
 
 
 const Signup = () => {
@@ -43,7 +44,7 @@ const findusername = watch("userName");
   const handelSignup = async(data)=>{
 try {
 
-  let createUser = await axios.post("https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/auth/signup",data,{
+  let createUser = await axios.post(`${api_server_key}/api/auth/signup`,data,{
   withCredentials: true
 })
   console.log(createUser.data.user)
@@ -59,7 +60,7 @@ try {
   // handel check userName 
   const handelCheckUserName = async()=>{
     try {
-      let findUser = await axios.post("https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/auth/finduser", {findUsername : findusername})
+      let findUser = await axios.post(`${api_server_key}/api/auth/finduser`, {findUsername : findusername})
       setAvailable(findUser.data.userName)
       console.log(findUser.data.userName)
     } catch (error) {

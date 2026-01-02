@@ -19,6 +19,7 @@ import CallLog from './pages/CallLog.jsx'
 import UserChats from './pages/Chat/UserChats.jsx'
 import axios from 'axios'
 import socket from './socket.js'
+import { api_server_key } from './server.js'
 
 
 
@@ -33,7 +34,7 @@ const App = () => {
 
   const handelFetchUser = async()=>{
       try {
-         let apiRes = await axios.get("https://welcome-charmine-alikhan67595-a5ec3999.koyeb.app/api/user/fetchuser",{withCredentials:true})
+         let apiRes = await axios.get(`${api_server_key}/api/user/fetchuser`,{withCredentials:true})
          console.log(apiRes.data.user)
         dispatch(setUser(apiRes.data.user))
         setLoading(false)
