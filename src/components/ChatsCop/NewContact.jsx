@@ -5,7 +5,9 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-import {setUser} from '../../redux/auth/userSlice.js'
+import { setUser } from '../../redux/auth/userSlice.js'
+import { toast } from 'react-toastify';
+
 
 export const UserIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -79,8 +81,8 @@ const NewContact = ({ setIsNewContact }) => {
 
   const handelsaveContact = async (data) => {
     try {
-     let {contactName , emailorUserName} = data
-      let saveContact = await axios.post(`http://localhost:3000/api/user/addcontact/${user._id}`, {contactId, contactName,emailorUserName,profilePhoto} , {
+      let { contactName, emailorUserName } = data
+      let saveContact = await axios.post(`http://localhost:3000/api/user/addcontact/${user._id}`, { contactId, contactName, emailorUserName, profilePhoto }, {
         withCredentials: true
       })
 
@@ -88,9 +90,27 @@ const NewContact = ({ setIsNewContact }) => {
       dispatch(setUser(saveContact.data.user))
       console.log(data)
       console.log(saveContact.data)
+      toast.success(`Your contact is successfully saved`, {position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "dark",
+      })
 
     } catch (error) {
       console.log(error)
+       toast.error(error.response.data.message, {position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      })
     }
   }
 
@@ -98,7 +118,7 @@ const NewContact = ({ setIsNewContact }) => {
     if (emailorUserName) {
       handelCheckUserName()
     }
-  },[emailorUserName])
+  }, [emailorUserName])
   return (
     <div className='select-none flex flex-col p-2 bg-[#161717] w-full h-full'>
       <div className='flex items-center'>
@@ -107,7 +127,7 @@ const NewContact = ({ setIsNewContact }) => {
       </div>
 
 
-      <div className='flex flex-col w-full h-full items-center gap-6 text-[16px] '>
+      <form onSubmit={handleSubmit(handelsaveContact)} className='flex flex-col w-full h-full items-center gap-6 text-[16px] '>
 
         {/* Name save input div */}
         <div className='flex items-center w-[90%] pt-20 gap-2'>
@@ -119,15 +139,15 @@ const NewContact = ({ setIsNewContact }) => {
         {/* search input div username or email */}
         <div className='flex items-center w-[90%] pt-20 gap-2'>
           <div><UserIcon /></div>
-          <div className='flex items-center border-b-2 border-[#FFFFFF80] focus-within:border-[#21c063] w-full'><input className='outline-none w-full placeholder:text-[16px]' {...register('emailorUserName')} type="text" placeholder='Search from username or email' onChange={(e) => setEmailorUserName(e.target.value)} value={emailorUserName} />{available !== null &&<span className='pb-1'>{available ? <CheckCircleFilled size='21px' color='#21c063' /> : <CrossCircle color='red' size='21px' />}</span>}</div>
+          <div className='flex items-center border-b-2 border-[#FFFFFF80] focus-within:border-[#21c063] w-full'><input className='outline-none w-full placeholder:text-[16px]' {...register('emailorUserName')} type="text" placeholder='Search from username or email' onChange={(e) => setEmailorUserName(e.target.value)} value={emailorUserName} />{available !== null && <span className='pb-1'>{available ? <CheckCircleFilled size='21px' color='#21c063' /> : <CrossCircle color='red' size='21px' />}</span>}</div>
         </div>
 
 
         <div className='pt-10 w-[90%]'>
-          <button disabled={!available} onClick={handleSubmit(handelsaveContact)} type='submit' className='bg-[#21c063] hover:bg-[#1aa457] duration-150 ease-in-out transition-all text-[16px] font-semibold text-[#0a0a0a] w-full py-2 rounded-[12px]'>Create a new contact</button>
+          <button disabled={!available || isSubmitting}  type='submit' className='bg-[#21c063] hover:bg-[#1aa457] duration-150 ease-in-out transition-all text-[16px] font-semibold text-[#0a0a0a] w-full py-2 rounded-[12px]'>Create a new contact</button>
         </div>
 
-      </div>
+      </form>
 
     </div>
   )

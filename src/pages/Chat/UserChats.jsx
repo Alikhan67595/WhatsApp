@@ -55,7 +55,8 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
 
     const receiveMessage = (message)=>{
       console.log(message)
-      dispatch(addMessage(message))
+      if (message?.senderId == selectedUserId){
+      dispatch(addMessage(message))}
     }
 
     socket.on("receive-message", receiveMessage) 
@@ -117,7 +118,14 @@ const UserChats = ({ isUserChats, setIsUserChats }) => {
 
               <button className='p-[8px] hover:bg-[#3a3c3c] rounded-full'><PlusIcon /></button>
               <button className='p-[8px] hover:bg-[#3a3c3c] rounded-full'><ExpressionsIcon /></button>
-              <TextareaAutosize onChange={(e) => { setInputValue(e.target.value), setInputLength(e.target.value.length) }} value={inputValue} maxRows={5} placeholder="Type a message..." className="h-[20px] flex-1 px-2 py-2 mr-1 outline-none bg-[#242626] text-white resize-none text-[15px] selection:bg-[#1a5a35] selection:text-[#FAFAFA] placeholde:select-none" />
+              <TextareaAutosize onKeyDown={(e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Browser ko next line par jane se rokta hai
+      if (inputValue.trim() !== "") {
+        handelSendMessage(); // Aapka message send karne wala function
+      }
+    }
+  }} onChange={(e) => { setInputValue(e.target.value), setInputLength(e.target.value.length) }} value={inputValue} maxRows={5} placeholder="Type a message..." className="h-[20px] flex-1 px-2 py-2 mr-1 outline-none bg-[#242626] text-white resize-none text-[15px] selection:bg-[#1a5a35] selection:text-[#FAFAFA] placeholde:select-none" />
               {inputLength > 0 ?
                 <button onClick={()=>handelSendMessage()} className='group p-[8px] bg-[#34be6d] rounded-full'> <SendIcon className={' text-black '} /></button>
                 :

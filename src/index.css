@@ -18,6 +18,7 @@ body{
 }
 
 
+
 button:hover{
 cursor: pointer;
 }
@@ -261,4 +262,12 @@ input::placeholder{
     border-radius: 5px 0px 0px 30px; /* Radius bhi flip kar di */
     transform: translateZ(-1px);
     z-index: -1;
+}
+
+
+/* reat toastify auto width css */
+.Toastify__toast {
+    width: fit-content !important;
+    font-family: "Inter", sans-serif;
+     white-space: nowrap;
 }

@@ -10,6 +10,8 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../redux/auth/userSlice.js'
 import { api_server_key } from '../../server.js'
+  import { toast } from 'react-toastify';
+
 
 
 const Login = () => {
@@ -44,11 +46,29 @@ try {
   let createUser = await axios.post(`${api_server_key}/api/auth/login`,data,{
   withCredentials: true
 })
+toast.success(`${createUser?.data?.user?.fullName} you are loged in successfully`, {position: "top-center",
+autoClose: 3000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: false,
+draggable: false,
+progress: undefined,
+theme: "dark",
+})
   console.log(createUser)
   dispatch(setUser(createUser.data.user))
   navigate("/users")
 } catch (error) {
   console.log(error)
+  toast.error(error.response.data.message, {position: "top-right",
+autoClose: 3000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "dark",
+})
 }
   }
   
@@ -63,7 +83,7 @@ try {
     <div className=' z-100 min-w-[300px]  w-full h-screen text-white flex flex-col items-center justify-center relative' >
     
 
- <form  className='min-h-[400px] w-[320px] max-[350px]:w-[90%] p-4  flex flex-col gap-6 items-center justify-center border-[#262626] border-[1px]  bg-[#000000] rounded-[10px]'>
+ <form onSubmit={handleSubmit(handelLogin)} className='min-h-[400px] w-[320px] max-[350px]:w-[90%] p-4  flex flex-col gap-6 items-center justify-center border-[#262626] border-[1px]  bg-[#000000] rounded-[10px]'>
 
   <div className='w-[100%] flex flex-col justify-center items-center'>
   <h1 className='text-[24px] font-semibold '>Welcome back!</h1>
@@ -90,7 +110,7 @@ try {
 <div>
   <div className={`${errors.password ? 'border-red-600' : ' border-[#262626]'} w-full flex border-[1px]  border-[#262626]  rounded-[8px]  bg-[#0a0a0a]`}>
     <div className='flex items-center justify-center pl-2'>{<LockIconSign/>}</div>
-  <input autoComplete='new-password' type={passType === "password" ? "password" : "text"} className='w-full p-[8px] text-[14px] outline-none' {...register('password')} placeholder='Password' />
+  <input  type={passType === "password" ? "password" : "text"} className='w-full p-[8px] text-[14px] outline-none' {...register('password')} placeholder='Password' />
 <button className='pr-2' type='button' onClick={()=>setPassType(passType === "password" ? "text" : "password")}>{passType === "password" ? <EyeIcon/> : <EyeOffIcon/>}</button>
   </div>
    {errors.password && <span className='text-[12px] text-red-600'>{errors.password.message}</span>}
@@ -101,7 +121,7 @@ try {
 
 {/* ///////////////////////////////////////////////// */}
 
-  <button disabled={isSubmitting} type='submit' onClick={handleSubmit(handelLogin)} className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-black bg-white hover:bg-[#cfcfcf]'>Log in</button>
+  <button  type='submit' disabled={isSubmitting}  className='flex justify-center items-center w-full  p-[7px] bg-balck rounded-[8px] max-[400px]:text-[15px] font-semibold text-black bg-white hover:bg-[#cfcfcf]'>Log in</button>
 </div>
 
  <div className='w-[100%] h-[1px] text-[14px] grid place-items-center bg-[#9f9fa9] before:text-[#9f9fa9] before:font-semibold before:content-["OR"] before:absolute before:bg-[black]  before:w-[60px] before:text-center '></div>

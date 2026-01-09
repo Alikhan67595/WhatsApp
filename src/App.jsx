@@ -63,10 +63,13 @@ const App = () => {
    if(user && user?._id) {
     socket.connect()
        
-      socket.on("connect");
+      socket.on("connect",()=>{
+      console.log("socket Id", socket.id)
+      
+    })
+    
+    socket.emit("join-room",user._id)
 
-
-      socket.emit("join-room",user._id)
     }
 
 
